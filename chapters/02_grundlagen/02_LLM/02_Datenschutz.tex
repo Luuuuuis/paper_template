@@ -1,0 +1,38 @@
+\subsubsection{Datenschutz} \label{sec:llm_datenschutz}
+
+Der EU AI Act ist seit 2024 eine Verordnung der Europäischen Union, die darauf abzielt, einen einheitlichen Rechtsrahmen für Künstliche Intelligenz zu schaffen. Er legt Anforderungen und Standards für KI-Systeme fest, um sicherzustellen, dass sie sicher, transparent und ethisch sind. Der EU AI Act unterscheidet zwischen verschiedenen Risikoklassen von KI-Systemen und legt spezifische Anforderungen für jedes Risiko fest. Alle KI-Systeme, die in der EU angeboten und betrieben werden, müssen sich an diese Verordnung halten. \cite{llm-privacy}
+
+Nach Artikel 3 Absatz 3 des EU AI Act wird ein Anbieter als die juristische Person, die ein KI-System entwickelt und bereitstellt. Nach Artikel 3 Absatz 4 ist ein Betreiber die juristische Person, die ein KI-System für Endnutzende implementiert und bereitstellt. \cite{ai-act-3}   
+
+\acp{llm} können in der Regel auf drei verschiedene Wege aufgerufen werden \cite{llm-privacy}:
+\begin{enumerate}
+    \item \textbf{\ac{llm} as a Service:} In diesem Servicemodell gibt der Bereitstellende den Zugriff auf sein \ac{llm} über eine API frei. Dabei läuft das Modell auf fremder Infrastruktur. Die Nutzenden können Anfragen an das Modell über die bereitgestellte API senden und erhalten die generierte Antwort zurück. Diese Methode ist simpel zu implementieren, da die Entwicklenden keine eigene Infrastruktur bereitstellen müssen. Oft wird für die Anzahl der Eingabe- und Ausgabetokens eine "Pay as you go"-Gebühr erhoben.
+    Bei dieser Art von Service gibt es wiederum drei verschiedene Arten von Modellen, aus welchen die Entwickelnden auswählen können:
+    \begin{itemize}
+        \item \textbf{Proprietäres \ac{llm}:} Die Entwickelnden haben keine Einsicht auf die Modellarchitektur und können diese auch nicht beeinflussen. Ein bekanntes Beispiel ist OpenAIs GPT-API. 
+        \item \textbf{Fine-tuneable \ac{llm}:} Die Entwickelnden haben die Möglichkeit, das Modell mit eigenen Daten zu fine-tunen. Dies geschieht in der Regel über eine API, die es den Entwickelnden ermöglicht, ihre Daten hochzuladen und das Modell anzupassen. Allerdings können die Entwickelnden die Modellarchitektur wieder nicht einsehen. Ein Beispiel dafür ist der Azure OpenAI Service.
+        \item \textbf{Open-Source \ac{llm}:} Die Entwickelnden können das Modell frei von einem beliebigen Anbieter wählen und haben die Möglichkeit, das Modell nach Belieben anzupassen und einzusehen. Unter anderem bietet HugginFace mit der serverless Inference-API die Möglichkeit, Open-Source Modelle zu hosten und diese über eine API anzusprechen. Nur hier sind Anbieter und Betreiber nicht identisch.
+    \end{itemize}
+    \item \textbf{Self-deployed \ac{llm}:} Hier können die Entwickelnden ein beliebiges Open-Source Modell oder sogar ein selbst trainiertes Modell auf ihrer eigenen Infrastruktur hosten. So werden die Entwickelnden zum Betreiber und eventuell zum Anbieter gleichzeitig. Dies erfordert jedoch mehr technisches Wissen und Ressourcen, da die Entwickelnden für die Bereitstellung und Wartung des Modells verantwortlich sind. Diese Methode bietet jedoch volle Kontrolle über die Daten, die Modellarchitektur und den Datenfluss. Keine Nutzerdaten werden an Dritte weitergegeben.
+    \item \textbf{On-Device \ac{llm}:} Hierbei sind die Endnutzenden die Betreiber des Modells. Das Modell wird lokal auf dem Endgerät der Nutzenden ausgeführt, was bedeutet, dass keine Daten an Dritte oder sogar Zweite weitergegeben werden. Bei dieser Methode haben theoretisch die Endnutzenden volle Einsicht auf die Modellarchitektur. 
+\end{enumerate}
+
+
+\begin{figure}[H]
+    \centering 
+    \includesvg[width=0.5\textwidth]{resources/LLM_Dataflow}
+    \caption[Allgemeines Datenflussdiagramm von den Eingabedaten der Endnutzenden zu den Ausgabedaten des Betreibers bei LLM-Servicemodellen.]{Allgemeines Datenflussdiagramm von den Eingabedaten der Endnutzenden zu den Ausgabedaten des Betreibers bei \ac{llm}-Servicemodellen. Eigene Abbildung basierend auf \cite{llm-privacy}.}
+    \label{fig:llm_dataflow}
+\end{figure}
+
+Der Datenfluss zwischen den Endnutzenden und dem Betreiber in allen \ac{llm}-Servicemodellen läuft wie in Abbildung \ref{fig:llm_dataflow} dargestellt ab. Je nach Servicemodell unterscheidet sich der Betreiber. Erst schicken die Endnutzenden ihre Anfrage mit den Eingabedaten an die API des Betreibers. Der Betreiber kann entweder ein externer Dienstleister, der Betreiber der Webseite oder die Endnutzenden selbst sein. Unter die Eingabedaten fallen der User-Prompt, Audioaufnahmen, Bilder sowie alle sonstigen Arten von Dateien, die die Nutzenden hochladen. Die API des Betreibers empfängt die Anfrage und übergibt diese in Kombination mit dem System-Prompt an das \ac{llm}. Das Modell generiert eine Antwort und sendet diese zurück an die Betreiber-API. Letztendlich wird von dort die Antwort an die Endnutzenden weitergeleitet. Vor und nach der Inferenzphase ist es möglich, dass der Betreiber die Ein- und Ausgabedaten und weitere personenbezogene Metadaten speichert. Diese Daten können dann für verschiedene Zwecke verwendet werden, wie zum Beispiel zur Verbesserung des Modells oder zur Analyse von Nutzerverhalten. In der Theorie können die Daten auch zur Monetarisierung weiterverarbeitet werden. \cite{llm-privacy}
+
+In Zuge dessen entstehen für die Endnutzenden mehrere Risiken, unter anderem \cite{llm-privacy}:
+\begin{itemize}
+    \item \textbf{Offenlegung sensibler Daten:} Nutzende können versehentlich oder aus Vertrauen sensible personenbezogene Daten preisgeben. 
+    \item \textbf{Unbefugter Zugriff:} Unzureichend gesicherte Schnittstellen können Unbefugten Zugriff auf Nutzerkonten geben und somit letzte Anfragen einsehbar machen.
+    \item \textbf{Datenmissbrauch:} Oftmals ist es unklar, wie die Daten verarbeitet und gespeichert werden. Die Nutzenden können nie sicher sein, was mit ihren Daten passiert. Personenbezogene Daten können sich ohne Zustimmung in einem Trainingsdatensatz wiederfinden oder an Dritte weitergegeben werden.
+    \item \textbf{Datenlecks:} Wenn der Betreiber die Daten nicht ausreichend schützt, können diese in die Hände Dritter gelangen. Dies kann zu Identitätsdiebstahl oder anderen Formen des Missbrauchs führen.
+\end{itemize}
+
+Obwohl es für den Schutz dieser Daten klare gesetzliche Vorgaben nach dem EU AI Act und der Datenschutz-Grundverordnung (DSGVO) gibt, ist es für die Nutzenden oft schwierig, diese zu verstehen und zu überprüfen. Auch ist es durch die globale Gegebenheit des Internets oft schwer herauszufinden, welchen nationalen Regelungen der Betreiber unterliegt. Diese Risiken können alleinig durch On-Device \acp{llm} mitigiert werden. \cite{llm-privacy}

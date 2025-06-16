@@ -1,0 +1,5 @@
+\subsubsection{Hardware Anforderungen} \label{sec:llm_hw_requirements}
+
+Der größte Aufwand an Energie, Zeit und Rechenleistung wird in der Trainingsphase benötigt. Die Inferenzphase ist im Vergleich dazu deutlich weniger ressourcenintensiv. Die benötigte Rechenleistung hängt von der Größe des Modells ab. Kleinere Modelle benötigen weniger Rechenleistung, während größere Modelle mehr Ressourcen erfordern. Entscheidend, ob ein Modell überhaupt ausgeführt werden kann, ist die Größe des RAMs, weil beim Start das ganze Modell in den RAM geladen wird. Bei Maschinen mit GPU wird meist der VRAM benutzt. Wenn keine GPU vorhanden ist, muss auf die CPU und den DRAM zurückgegriffen werden. Schon bei einer Modellgröße von sieben Milliarden Parametern werden über 14GB RAM benötigt. Diese Anforderungen übersteigen meist die Kapazität von mobilen Endgeräten. \cite{llm-memory}
+
+Eine weitere Limitierung ist der benötigte Speicherplatz und die Netzwerkbandbreite. Die Modelle sind in der Regel mehrere Gigabyte groß und benötigen eine schnelle Internetverbindung, um effizient heruntergeladen zu werden. \cite{llm-webllm}
