@@ -1,0 +1,19 @@
+{
+	"Make a default latex table": {
+		"prefix": "table",
+		"body": [
+			"\\begin{table}[h!]",
+			"\\centering",
+			"\\begin{tabular}{|>{\\centering}p{0.1\\linewidth}|>{\\centering}p{0.15\\linewidth}|>{\\centering}p{0.537\\linewidth}|>{\\centering}p{0.1\\linewidth}|} % hbox ist 0.887\\linewidth breit",
+			"\\hline",
+			"\\textbf{$1} & \\textbf{$2} & \\textbf{$3} & \\textbf{$4} \\tabularnewline \\hline",
+			"1 & - & Anforderungen festlegen & \\makebox[0.4cm]{$\\checkmark$} \\tabularnewline \\hline",
+			"$0 & 01.02.2025 & Anfangen zu Schreiben & \\makebox[0.4cm]{$\\square$} \\tabularnewline \\hline",
+			"\\end{tabular}",
+			"\\caption{$5}",
+			"\\label{tab:$6}",
+			"\\end{table}"
+		],
+		"description": "Create a table"
+	}
+}

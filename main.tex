@@ -1,0 +1,119 @@
+\documentclass[12pt, titlepage, a4paper]{scrartcl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage[autostyle, german]{csquotes}
+\MakeOuterQuote{"} 
+\usepackage[a4paper,
+    lmargin={2.8cm},
+    rmargin={2.8cm},
+    tmargin={2.5cm},
+    bmargin={2.5cm},
+    lines={42}, 
+    headsep=\baselineskip,
+    footskip=\baselineskip]{geometry}
+\sloppy
+\usepackage{graphicx}
+\usepackage[automark]{scrlayer-scrpage}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{helvet}
+\usepackage{wrapfig}
+\usepackage[numbers]{natbib}
+\usepackage{float}
+\usepackage[newfloat]{minted}
+\usepackage{hyperref}
+\usepackage{currfile}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{acronym}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{svg}
+\usepackage{datetime}
+ 
+\setlength{\footskip}{10mm}
+
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH], \THEYEAR}
+
+\newcommand{\hl}[1]{\colorbox{yellow}{#1}}
+
+% Kopf- und Fußzeile
+\chead{\headmark}
+\cofoot{Luis Bros}
+\rofoot{Seite \pagemark}
+\lofoot{\monthyeardate\today}
+
+\KOMAoptions{
+   headsepline = true,
+   footsepline = true,
+   plainfootsepline = true,
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5\baselineskip}
+
+% PDF Einstellungen
+\hypersetup{
+    pdftitle={Studienarbeit},
+    pdfauthor={Luis Bros},
+}
+
+\newenvironment{code}{\captionsetup{type=listing,labelformat=simple}}{}
+\SetupFloatingEnvironment{listing}{name=Quelltext}
+
+\begin{document}
+
+\input{structure/title.tex}
+\newpage
+
+\input{structure/sperrvermerk.tex}
+\thispagestyle{empty}
+\newpage
+
+\input{structure/erklaerung.tex}
+\thispagestyle{empty}
+\newpage
+
+\input{structure/abstract.tex}
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+\listoffigures
+% \listoflistings
+\listoftables
+\thispagestyle{empty}
+
+\input{structure/acronyms.tex}
+\thispagestyle{empty}
+\newpage
+
+\setcounter{page}{1}
+
+\input{chapters/01_einleitung/00_Einleitung.tex}
+\newpage
+\input{chapters/02_grundlagen/00_Grundlagen.tex}
+\newpage
+\input{chapters/03_anforderungen/00_Anforderungen.tex}
+\newpage
+\input{chapters/04_umsetzung/00_Umsetzung.tex}
+\newpage
+\input{chapters/05_evaluation/00_Evaluation.tex}
+\newpage
+\input{chapters/06_ausblick/00_Ausblick.tex}
+
+\newpage
+\bibliographystyle{luisIEEE}
+\bibliography{literatur.bib}
+\newpage
+
+\appendix
+\input{structure/appendix.tex}
+
+\end{document}
